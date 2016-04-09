@@ -1,8 +1,8 @@
 --[[
 CScreen v1.0 by CodeNMore
 A simple way to make resolution-independent Love2D games
-
-See: 
+Tested for LOVE 0.10.1
+See: https://github.com/CodeNMore/CScreen
 
 Zlib License:
 Copyright (c) 2016 CodeNMore
@@ -29,7 +29,7 @@ misrepresented as being the original software.
 
 local CScreen = {}
 local rx, ry, fsv, ctr = 800, 600, 1.0, false
-local tx, ty = 0, 0
+local tx, ty = 0.0, 0.0
 
 -- Initializes CScreen with the initial size values
 -- call this before using CScreen
