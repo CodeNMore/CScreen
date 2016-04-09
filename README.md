@@ -29,7 +29,7 @@ end
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td>init</td>
+		<td>init(tw, th, center)</td>
 		<td>
 			<b>tw</b> (800) the target screen width<br>
 			<b>th</b> (600) the target screen height<br>
@@ -40,7 +40,7 @@ end
 		</td>
 	</tr>
 	<tr>
-		<td>update</td>
+		<td>update(w, h)</td>
 		<td>
 			<b>w</b> (int) the new screen width<br>
 			<b>h</b> (int) the new screen height
@@ -50,16 +50,16 @@ end
 		</td>
 	</tr>
 	<tr>
-		<td>apply</td>
+		<td>apply()</td>
 		<td>
 			none
 		</td>
 		<td>
-			Will apply any calculations to properly draw the screen. Usually this is called at the beginning of <em>love.draw(dt)</em>. This function calls <em>applyCentering()</em> and <em>applyScaling</em>.
+			Will apply any calculations to properly draw the screen. Usually this is called at the beginning of <em>love.draw(dt)</em>. This function calls <em>applyCentering()</em> and <em>applyScaling()</em>.
 		</td>
 	</tr>
 	<tr>
-		<td>applyCentering</td>
+		<td>applyCentering()</td>
 		<td>
 			none
 		</td>
@@ -68,7 +68,7 @@ end
 		</td>
 	</tr>
 	<tr>
-		<td>applyScaling</td>
+		<td>applyScaling()</td>
 		<td>
 			none
 		</td>
