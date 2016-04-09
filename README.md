@@ -66,7 +66,7 @@ end
 			none
 		</td>
 		<td>
-			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the color black, then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio!</b>
+			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the set color (see <em>setColor()</em>), then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio!</b>
 		</td>
 	</tr>
 	<tr>
