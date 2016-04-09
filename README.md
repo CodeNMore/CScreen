@@ -15,6 +15,7 @@ end
 function love.draw(dt)
 	CScreen.apply()
 	-- Draw all objects here!
+	CScreen.cap()
 end
 
 function love.resize(width, height)
@@ -57,6 +58,15 @@ end
 		</td>
 		<td>
 			Will apply any calculations to properly draw the screen. Usually this is called at the beginning of <em>love.draw(dt)</em>. This function calls <em>applyCentering()</em> and <em>applyScaling()</em>.
+		</td>
+	</tr>
+	<tr>
+		<td>cap()</td>
+		<td>
+			none
+		</td>
+		<td>
+			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the color black, then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio.</b>b>
 		</td>
 	</tr>
 	<tr>

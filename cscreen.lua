@@ -1,5 +1,5 @@
 --[[
-CScreen v1.0.3 by CodeNMore
+CScreen v1.2 by CodeNMore
 A simple way to make resolution-independent Love2D games
 Tested for LOVE 0.10.1
 See: https://github.com/CodeNMore/CScreen
@@ -28,8 +28,8 @@ misrepresented as being the original software.
 --]]
 
 local CScreen = {}
-local rx, ry, fsv, ctr = 800, 600, 1.0, true
-local tx, ty = 0.0, 0.0
+local rx, ry, rxv, ryv, fsv, fsvr, ctr = 800, 600, 800, 600, 1.0, 1.0, true
+local tx, ty, rwf, rhf = 0.0, 0.0, 800, 600
 
 -- Initializes CScreen with the initial size values
 function CScreen.init(tw, th, center)
@@ -53,6 +53,23 @@ function CScreen.applyScaling()
 	love.graphics.scale(fsv, fsv)
 end
 
+-- Draws letterbox borders
+function CScreen.cap()
+	pr, pg, pb, pa = love.graphics.getColor()
+	love.graphics.setColor(0, 0, 0, 255)
+	love.graphics.scale(fsvr, fsvr)
+
+	if tx ~= 0 then
+		love.graphics.rectangle("fill", -tx, 0, tx, rhf)
+		love.graphics.rectangle("fill", rxv, 0, tx, rhf)
+	elseif ty ~= 0 then
+		love.graphics.rectangle("fill", 0, -ty, rwf, ty)
+		love.graphics.rectangle("fill", 0, ryv, rwf, ty)
+	end
+
+	love.graphics.setColor(pr, pg, pb, pa)
+end
+
 -- Scales and centers all graphics properly
 function CScreen.apply()
 	CScreen.applyCentering()
@@ -64,6 +81,7 @@ function CScreen.update(w, h)
 	local sx = w / rx
 	local sy = h / ry
 	fsv = math.min(sx, sy)
+	fsvr = 1 / fsv
 
 	-- Calculate center translations if needed
 	if ctr and fsv == sx then
@@ -75,6 +93,11 @@ function CScreen.update(w, h)
 		ty = 0
 		tx = (w / 2) - (rx * fsv / 2)
 	end
+
+	rwf = w
+	rhf = h
+	rxv = rx * fsv
+	ryv = ry * fsv
 end
 
 -- Return the table for use
