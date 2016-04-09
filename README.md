@@ -3,7 +3,7 @@ A simple way to make resolution-independent Love2D games, by CodeNMore.
 This version has been tested (and works!) with LOVE 0.10.1
 
 ## Basic Usage
-CScreen is very simple to use, and can be implemented in nearly any type of game.
+CScreen is very simple to use, and can be implemented in nearly any type of game. Simply place the *cscreen.lua* file into your game directory, and follow the below example:
 ```lua
 local CScreen = require "cscreen"
 
