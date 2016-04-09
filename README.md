@@ -1,10 +1,10 @@
 # CScreen
 A simple way to make resolution-independent Love2D games, by CodeNMore. This allows your game to be resized to any resolution by the user and still keep the aspect ratio and look pretty!
 
-This version has been tested (and works!) with LOVE 0.10.1
+This version (1.3) has been tested (and works!) with LOVE 0.10.1
 
 ## Basic Usage
-CScreen is very simple to use, and can be implemented in nearly any type of game. Simply place the *cscreen.lua* file into your game directory, and follow the below example:
+CScreen is very simple to use, and can be implemented in nearly any type of game. Simply place the *cscreen.lua* file into your game directory, and follow the example below:
 ```lua
 local CScreen = require "cscreen"
 
@@ -14,8 +14,8 @@ end
 
 function love.draw(dt)
 	CScreen.apply()
-	-- Draw all objects here!
-	CScreen.cap()
+	-- Draw all of your objects here!
+	CScreen.cease()
 end
 
 function love.resize(width, height)
@@ -57,34 +57,28 @@ end
 			none
 		</td>
 		<td>
-			Will apply any calculations to properly draw the screen. Usually this is called at the beginning of <em>love.draw(dt)</em>. This function calls <em>applyCentering()</em> and <em>applyScaling()</em>.
+			Will apply any calculations to properly draw the screen. Usually this is called at the beginning of <em>love.draw(dt)</em>. This function utilizes <em>love.graphics.translate(..)</em> for centering and <em>love.graphics.scale(..)</em> for fitting.
 		</td>
 	</tr>
 	<tr>
-		<td>cap()</td>
+		<td>cease()</td>
 		<td>
 			none
 		</td>
 		<td>
-			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the color black, then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio.</b>b>
+			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the color black, then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio!</b>
 		</td>
 	</tr>
 	<tr>
-		<td>applyCentering()</td>
+		<td>setColor(r, g, b, a)</td>
 		<td>
-			none
+			<b>r</b> (0) red<br>
+			<b>g</b> (0) green<br>
+			<b>b</b> (0) blue<br>
+			<b>a</b> (255) alpha
 		</td>
 		<td>
-			Applies centering calculations (if needed) via <em>love.graphics.translate(..)</em>. Generally this should not be called outside of CScreen.
-		</td>
-	</tr>
-	<tr>
-		<td>applyScaling()</td>
-		<td>
-			none
-		</td>
-		<td>
-			Applies screen scaling calculations via <em>love.graphics.scale(..)</em>. Generally this should not be called outside of CScreen.
+			Sets the color to use for the screen letterbox borders (default is black).
 		</td>
 	</tr>
 </table>

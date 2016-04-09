@@ -1,5 +1,5 @@
 --[[
-CScreen v1.2 by CodeNMore
+CScreen v1.3 by CodeNMore
 A simple way to make resolution-independent Love2D games
 Tested for LOVE 0.10.1
 See: https://github.com/CodeNMore/CScreen
@@ -28,35 +28,25 @@ misrepresented as being the original software.
 --]]
 
 local CScreen = {}
-local rx, ry, rxv, ryv, fsv, fsvr, ctr = 800, 600, 800, 600, 1.0, 1.0, true
+local rx, ry, ctr = 800, 600, true
+local rxv, ryv, fsv, fsvr = 800, 600, 1.0, 1.0
 local tx, ty, rwf, rhf = 0.0, 0.0, 800, 600
+local cr, cg, cb, ca = 0, 0, 0, 255
 
 -- Initializes CScreen with the initial size values
-function CScreen.init(tw, th, center)
+function CScreen.init(tw, th, cntr)
 	rx = tw or 800
 	ry = th or 600
-	ctr = center or true
+	ctr = cntr or true
 	tx = 0
 	ty = 0
 	CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
--- Applies centering calculations
-function CScreen.applyCentering()
-	if ctr then
-		love.graphics.translate(tx, ty)
-	end
-end
-
--- Applies scaling calculations
-function CScreen.applyScaling()
-	love.graphics.scale(fsv, fsv)
-end
-
 -- Draws letterbox borders
-function CScreen.cap()
+function CScreen.cease()
 	pr, pg, pb, pa = love.graphics.getColor()
-	love.graphics.setColor(0, 0, 0, 255)
+	love.graphics.setColor(cr, cg, cb, ca)
 	love.graphics.scale(fsvr, fsvr)
 
 	if tx ~= 0 then
@@ -72,8 +62,10 @@ end
 
 -- Scales and centers all graphics properly
 function CScreen.apply()
-	CScreen.applyCentering()
-	CScreen.applyScaling()
+	if ctr then
+		love.graphics.translate(tx, ty)
+	end
+	love.graphics.scale(fsv, fsv)
 end
 
 -- Updates CScreen when the window size changes
@@ -82,22 +74,26 @@ function CScreen.update(w, h)
 	local sy = h / ry
 	fsv = math.min(sx, sy)
 	fsvr = 1 / fsv
-
-	-- Calculate center translations if needed
-	if ctr and fsv == sx then
-		-- Center vertically
+	-- Centering
+	if ctr and fsv == sx then -- Vertically
 		tx = 0
 		ty = (h / 2) - (ry * fsv / 2)
-	elseif ctr and fsv == sy then
-		-- Center horizontally
+	elseif ctr and fsv == sy then -- Horizontally
 		ty = 0
 		tx = (w / 2) - (rx * fsv / 2)
 	end
-
+	-- Variable sets
 	rwf = w
 	rhf = h
 	rxv = rx * fsv
 	ryv = ry * fsv
+end
+
+function CScreen.setColor(r, g, b, a)
+	cr = r
+	cg = g
+	cb = b
+	ca = a
 end
 
 -- Return the table for use
