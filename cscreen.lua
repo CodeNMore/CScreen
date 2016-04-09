@@ -1,5 +1,5 @@
 --[[
-CScreen v1.0 by CodeNMore
+CScreen v1.0.3 by CodeNMore
 A simple way to make resolution-independent Love2D games
 Tested for LOVE 0.10.1
 See: https://github.com/CodeNMore/CScreen
@@ -28,15 +28,14 @@ misrepresented as being the original software.
 --]]
 
 local CScreen = {}
-local rx, ry, fsv, ctr = 800, 600, 1.0, false
+local rx, ry, fsv, ctr = 800, 600, 1.0, true
 local tx, ty = 0.0, 0.0
 
 -- Initializes CScreen with the initial size values
--- call this before using CScreen
-function CScreen.init(basew, baseh, center)
-	rx = basew or 800
-	ry = baseh or 600
-	ctr = center or false
+function CScreen.init(tw, th, center)
+	rx = tw or 800
+	ry = th or 600
+	ctr = center or true
 	tx = 0
 	ty = 0
 	CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
@@ -55,28 +54,26 @@ function CScreen.applyScaling()
 end
 
 -- Scales and centers all graphics properly
--- call this before drawing objects
 function CScreen.apply()
 	CScreen.applyCentering()
 	CScreen.applyScaling()
 end
 
 -- Updates CScreen when the window size changes
--- call this in love.resize(w,h)
-function CScreen.update(width, height)
-	local sx = width / rx
-	local sy = height / ry
+function CScreen.update(w, h)
+	local sx = w / rx
+	local sy = h / ry
 	fsv = math.min(sx, sy)
 
 	-- Calculate center translations if needed
 	if ctr and fsv == sx then
 		-- Center vertically
 		tx = 0
-		ty = (height / 2) - (ry * fsv / 2)
+		ty = (h / 2) - (ry * fsv / 2)
 	elseif ctr and fsv == sy then
 		-- Center horizontally
 		ty = 0
-		tx = (width / 2) - (rx * fsv / 2)
+		tx = (w / 2) - (rx * fsv / 2)
 	end
 end
 
