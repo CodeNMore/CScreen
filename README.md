@@ -1,5 +1,6 @@
 # CScreen
-A simple way to make resolution-independent Love2D games, by CodeNMore.
+A simple way to make resolution-independent Love2D games, by CodeNMore. This allows your game to be resized to any resolution by the user and still keep the aspect ratio and look pretty!
+
 This version has been tested (and works!) with LOVE 0.10.1
 
 ## Basic Usage
