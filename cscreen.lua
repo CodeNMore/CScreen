@@ -45,7 +45,7 @@ end
 
 -- Draws letterbox borders
 function CScreen.cease()
-	pr, pg, pb, pa = love.graphics.getColor()
+	local pr, pg, pb, pa = love.graphics.getColor()
 	love.graphics.setColor(cr, cg, cb, ca)
 	love.graphics.scale(fsvr, fsvr)
 
