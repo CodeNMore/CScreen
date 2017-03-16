@@ -37,7 +37,7 @@ local cr, cg, cb, ca = 0, 0, 0, 255
 function CScreen.init(tw, th, cntr)
 	rx = tw or 800
 	ry = th or 600
-	ctr = cntr or true
+	ctr = cntr or false
 	tx = 0
 	ty = 0
 	CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
