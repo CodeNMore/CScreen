@@ -91,6 +91,7 @@ function CScreen.update(w, h)
 	ryv = ry * fsv
 end
 
+-- Change letterbox color
 function CScreen.setColor(r, g, b, a)
 	cr = r
 	cg = g
