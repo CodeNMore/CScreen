@@ -45,19 +45,21 @@ end
 
 -- Draws letterbox borders
 function CScreen.cease()
-	local pr, pg, pb, pa = love.graphics.getColor()
-	love.graphics.setColor(cr, cg, cb, ca)
-	love.graphics.scale(fsvr, fsvr)
+	if ctr then
+		local pr, pg, pb, pa = love.graphics.getColor()
+		love.graphics.setColor(cr, cg, cb, ca)
+		love.graphics.scale(fsvr, fsvr)
 
-	if tx ~= 0 then
-		love.graphics.rectangle("fill", -tx, 0, tx, rhf)
-		love.graphics.rectangle("fill", rxv, 0, tx, rhf)
-	elseif ty ~= 0 then
-		love.graphics.rectangle("fill", 0, -ty, rwf, ty)
-		love.graphics.rectangle("fill", 0, ryv, rwf, ty)
+		if tx ~= 0 then
+			love.graphics.rectangle("fill", -tx, 0, tx, rhf)
+			love.graphics.rectangle("fill", rxv, 0, tx, rhf)
+		elseif ty ~= 0 then
+			love.graphics.rectangle("fill", 0, -ty, rwf, ty)
+			love.graphics.rectangle("fill", 0, ryv, rwf, ty)
+		end
+
+		love.graphics.setColor(pr, pg, pb, pa)
 	end
-
-	love.graphics.setColor(pr, pg, pb, pa)
 end
 
 -- Scales and centers all graphics properly
