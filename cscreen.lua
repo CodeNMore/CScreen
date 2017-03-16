@@ -30,7 +30,7 @@ misrepresented as being the original software.
 local CScreen = {}
 local rx, ry, ctr = 800, 600, true
 local rxv, ryv, fsv, fsvr = 800, 600, 1.0, 1.0
-local tx, ty, rwf, rhf = 0.0, 0.0, 800, 600
+local tx, ty, rwf, rhf = 0, 0, 800, 600
 local cr, cg, cb, ca = 0, 0, 0, 255
 
 -- Initializes CScreen with the initial size values
@@ -38,8 +38,6 @@ function CScreen.init(tw, th, cntr)
 	rx = tw or 800
 	ry = th or 600
 	ctr = cntr or false
-	tx = 0
-	ty = 0
 	CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
