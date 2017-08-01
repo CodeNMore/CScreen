@@ -127,5 +127,14 @@ function CScreen.setColor(r, g, b, a)
 	ca = a
 end
 
+function CScreen.setImage(image)
+  if image and ctr then
+    ltile = love.graphics.newImage(image)
+    ltw, lth = ltile:getDimensions()
+    ltile:setWrap("repeat", "repeat")
+  end
+  CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
+end
+
 -- Return the table for use
 return CScreen
