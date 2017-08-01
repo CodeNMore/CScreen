@@ -32,29 +32,40 @@ local rx, ry, ctr = 800, 600, true
 local rxv, ryv, fsv, fsvr = 800, 600, 1.0, 1.0
 local tx, ty, rwf, rhf = 0, 0, 800, 600
 local cr, cg, cb, ca = 0, 0, 0, 255
+local ltile = nil
 
 -- Initializes CScreen with the initial size values
-function CScreen.init(tw, th, cntr)
+function CScreen.init(tw, th, cntr, image)
 	rx = tw or 800
 	ry = th or 600
 	ctr = cntr or false
-	CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
+  if image and ctr then
+    ltile = love.graphics.newImage(image)
+    ltw, lth = ltile:getDimensions()
+    ltile:setWrap("repeat", "repeat")
+  end
+  CScreen.update(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
 -- Draws letterbox borders
 function CScreen.cease()
 	if ctr then
 		local pr, pg, pb, pa = love.graphics.getColor()
-		love.graphics.setColor(cr, cg, cb, ca)
 		love.graphics.scale(fsvr, fsvr)
 
-		if tx ~= 0 then
-			love.graphics.rectangle("fill", -tx, 0, tx, rhf)
-			love.graphics.rectangle("fill", rxv, 0, tx, rhf)
-		elseif ty ~= 0 then
-			love.graphics.rectangle("fill", 0, -ty, rwf, ty)
-			love.graphics.rectangle("fill", 0, ryv, rwf, ty)
-		end
+    if not ltile then
+      love.graphics.setColor(cr, cg, cb, ca)
+		  if tx ~= 0 then
+			  love.graphics.rectangle("fill", -tx, 0, tx, rhf)
+			  love.graphics.rectangle("fill", rxv, 0, tx, rhf)
+		  elseif ty ~= 0 then
+			  love.graphics.rectangle("fill", 0, -ty, rwf, ty)
+			  love.graphics.rectangle("fill", 0, ryv, rwf, ty)
+		  end
+    else
+      love.graphics.draw(ltile, rightbox, rbx, rby)
+      love.graphics.draw(ltile, leftbox, lbx, lby)
+    end
 
 		love.graphics.setColor(pr, pg, pb, pa)
 	end
@@ -87,6 +98,20 @@ function CScreen.update(w, h)
 	rhf = h
 	rxv = rx * fsv
 	ryv = ry * fsv
+  -- Updating quads
+  if ltile then
+    if tx ~= 0 then
+      rightbox = love.graphics.newQuad(0, 0, tx, rhf, ltw, lth)
+      rbx, rby = -tx, 0
+      leftbox = love.graphics.newQuad(0, 0, tx, rhf, ltw, lth)
+      lbx, lby = rxv, 0
+    elseif ty ~= 0 then
+      rightbox = love.graphics.newQuad(0, 0, rwf, ty, ltw, lth)
+      rbx, rby = 0, -ty
+      leftbox = love.graphics.newQuad(0, 0, rwf, ty, ltw, lth)
+      lbx, lby = 0, ryv
+    end
+  end
 end
 
 -- Convert from window coordinates to target coordinates
