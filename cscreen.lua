@@ -63,9 +63,11 @@ function CScreen.cease()
 			  love.graphics.rectangle("fill", 0, ryv, rwf, ty)
 		  end
     else
-      love.graphics.draw(ltile, rightbox, rbx, rby)
-      love.graphics.draw(ltile, leftbox, lbx, lby)
-    end
+			if tx ~= 0 or ty ~= 0 then
+      	love.graphics.draw(ltile, rightbox, rbx, rby)
+      	love.graphics.draw(ltile, leftbox, lbx, lby)
+			end
+		end
 
 		love.graphics.setColor(pr, pg, pb, pa)
 	end
