@@ -9,7 +9,7 @@ CScreen is very simple to use, and can be implemented in nearly any type of game
 local CScreen = require "cscreen"
 
 function love.load()
-	CScreen.init(800, 600, true)
+	CScreen.init(800, 600, true, "resources/lettertile.png")
 end
 
 function love.draw(dt)
@@ -31,11 +31,12 @@ end
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td>init(tw, th, center)</td>
+		<td>init(tw, th, center, image)</td>
 		<td>
 			<b>tw</b> (800) the target screen width<br>
 			<b>th</b> (600) the target screen height<br>
 			<b>center</b> (true) whether or not to letterbox
+			<b>image</b> (nil) whether or not to use a repeated tile as letterbox
 		</td>
 		<td>
 			Use <em>tw</em> and <em>th</em> to set the target width and height of the game screen. This defaults to 800 and 600, or a 4:3 screen ratio. Set <em>center</em> to true to center, or letterbox, the game screen (generally this should be true). Usually this is called in <em>love.load()</em>.
@@ -66,7 +67,7 @@ end
 			none
 		</td>
 		<td>
-			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the set color (see <em>setColor()</em>), then restores the previously set color. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio!</b>
+			Actually draws the letterbox borders using <em>love.graphics.rectangle(..)</em> using the set color (see <em>setColor()</em>), if image is nil, then restores the previously set color. Otherwise, draws the letterbox borders as a repeated tile of the image. <b>**This is called at the end of <em>love.draw(dt)</em>, as drawing after this line will result in an incorrect ratio!</b>
 		</td>
 	</tr>
 	<tr>
@@ -79,6 +80,15 @@ end
 		</td>
 		<td>
 			Sets the color to use for the screen letterbox borders (default is black).
+		</td>
+	</tr>
+	<tr>
+		<td>setImage(image)</td>
+		<td>
+			<b>image</b> new image<br>
+		</td>
+		<td>
+			Replaces old image by a new one, if in letterbox mode.
 		</td>
 	</tr>
 </table>
